@@ -46,5 +46,12 @@ def predict_quality(features: WineFeatures):
     ]])
     prediction = model.predict(data)[0]
     return {"predicted_quality": round(prediction, 2)}
+
+# Serve static test HTML so you can run the POST from the browser
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
+@app.get("/test")
+async def test_page():
+    return FileResponse("app/static/test_predict.html")
     
 
